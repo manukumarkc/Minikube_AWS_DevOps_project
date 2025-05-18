@@ -2,7 +2,8 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -10,30 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code
+    # ✅ Step 1: Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Lint code
-    - name: Lint with flake8
+    # ✅ Step 2: Install and run flake8 for linting
+    - name: Run flake8 linter
       run: |
+        python -m pip install --upgrade pip
         pip install flake8
         flake8 app.py
 
-    # Build Docker image
+    # ✅ Step 3: Set up Docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # ✅ Step 4: Build the Docker image
     - name: Build Docker image
       run: |
         docker build -t hello-world-app .
 
-    # Save Docker image as tar
-    - name: Save Docker image locally
+    # ✅ Step 5: Save the Docker image to a local tarball
+    - name: Save Docker image to tar file
       run: |
         mkdir -p docker-output
         docker save hello-world-app -o docker-output/hello-world-app.tar
 
-    # Upload as GitHub Artifact
-    - name: Upload Docker image
-      uses: actions/upload-artifact@v3
+    # ✅ Step 6: Upload the tarball as a GitHub artifact
+    - name: Upload Docker image tarball
+      uses: actions/upload-artifact@v4
       with:
         name: docker-image
         path: docker-output/hello-world-app.tar

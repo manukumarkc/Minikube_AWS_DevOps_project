@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Lint code
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 app.py
+
+    # Build Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t hello-world-app .
+
+    # Save Docker image as tar
+    - name: Save Docker image locally
+      run: |
+        mkdir -p docker-output
+        docker save hello-world-app -o docker-output/hello-world-app.tar
+
+    # Upload as GitHub Artifact
+    - name: Upload Docker image
+      uses: actions/upload-artifact@v3
+      with:
+        name: docker-image
+        path: docker-output/hello-world-app.tar
+

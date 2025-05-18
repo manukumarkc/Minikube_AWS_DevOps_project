@@ -39,7 +39,10 @@ def home():
             <h2>🚀 My Static Web Page (Flask + K8s)</h2>
         </header>
         <main>
-            <h1>Hello, World from <strong>Kubernetes</strong>!</h1>
+            <h1>
+                Hello, World from
+                <strong>Kubernetes</strong>!
+            </h1>
             <p>This is a simple static-style page served by Flask in a container.</p>
         </main>
         <footer>
@@ -48,7 +51,7 @@ def home():
     </body>
     </html>
     '''
-        
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

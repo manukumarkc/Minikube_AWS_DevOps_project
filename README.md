@@ -54,15 +54,19 @@ This Web application displays a simple HTML page with:
 
   Step1: Create AWS EC2 instance with t2.large instance size Configuration and SSH to EC2 .
 
-    ```bash
+
+   ```bash
       ssh -i "<PemPrivateKey>.pem" ubuntu@ec2-<ip-address>.eu-west-1.compute.amazonaws.com
    ```
 
+
   -Upgrade the EC2 Ubuntu Instance to latest version, create a Directory named hello-k8s-app.
 
-     ```bash
+
+    ```bash
        mkdir hello-k8s-app
     ```
+
   -add app.py file and enter the contents as it is from the above GitHub file,(or You Clone this Git Repository to get complete code on your local repo)
 
   -Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.

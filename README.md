@@ -88,6 +88,18 @@ docker build -t hello-world-app .
 
 -Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
 
+-To Automate the App Building process and Verification process of the Static application, we used GitHUb Actions to Build Ci-Cd workflow, the Ci-Cd yml file create in the below given address .github/workflows/ci-cd.yml, below are the contents of Pipeline which ensures the application is correct and building process runs with linting and containerizes the application with latest Docker image on every Git Push action configured on main branch.
+
+Below is the Ci-Cd.yml file for static web app:
+
+
+-Configuring Trigger on Git Push Requets to the main branch.
+ -The Workflow pipeline is triggered with every push actions performed and create new build from the recent change done on main branch.
+
+-Below are the explanation for above steps in CI-CD pipeline worflow stages.
+
+
+
 
 -Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
 

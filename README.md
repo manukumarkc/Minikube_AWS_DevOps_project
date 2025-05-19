@@ -63,10 +63,10 @@ This Web application displays a simple HTML page with:
   -Upgrade the EC2 Ubuntu Instance to latest version, create a Directory named hello-k8s-app.
 
 
-    ```bash
+   ```bash
 
        mkdir hello-k8s-app
-    ```
+   ```
 
   -add app.py file and enter the contents as it is from the above GitHub file,(or You Clone this Git Repository to get complete code on your local repo)
 

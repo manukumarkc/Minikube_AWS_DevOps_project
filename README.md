@@ -323,4 +323,4 @@ sudo systemctl restart nginx
 -Step5: Application Access on Public EC2 Ip address:
 ```bash
 http://<EC2_PUBLIC_IP>
-```bash
+```

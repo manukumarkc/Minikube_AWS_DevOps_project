@@ -151,9 +151,9 @@ Below is the Ci-Cd.yml file for static web app:
 
 -Step4:Building of Hello-world Docker image using the Docker build command.
 
--Step5:Docker image is Saved in tar file in the local directory(as suggested not to publish in Docker Hub).
+-Step5:Docker image is Saved as tar file in the GitHub Artifact directory(as suggested not to publish in Docker Hub).
 
--Step6:Upload the tart ball into github Artifact to access every newly built latest image and retrive them when needed.
+-Step6:Upload the tar file into github Artifact to access every newly built latest image and retrive them when needed.
 
 
 **-Phase3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).**

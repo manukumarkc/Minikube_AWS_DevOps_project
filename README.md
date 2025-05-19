@@ -39,8 +39,11 @@ hello-k8s-app/
 ## App Description
 
 This Web application displays a simple HTML page with:
+
 -A Header in Blue Background and White bold text on it.
+
 -A Centered body with content, Hello World this is Manu Kumar Message from Minkube!
+
 -A footer with blue background with text: App by Manu Kumar.
 
 ---

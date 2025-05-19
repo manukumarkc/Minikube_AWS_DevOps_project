@@ -106,33 +106,33 @@ Below is the Ci-Cd.yml file for static web app:
 
 ```bash
  steps:
-    # ✅ Step 1: Checkout the repository
+    #  Step 1: Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # ✅ Step 2: Install and run flake8 for linting
+    # Step 2: Install and run flake8 for linting
     - name: Run flake8 linter
       run: |
         python -m pip install --upgrade pip
         pip install flake8
         flake8 app.py
 
-    # ✅ Step 3: Set up Docker
+    #  Step 3: Set up Docker
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # ✅ Step 4: Build the Docker image
+    #  Step 4: Build the Docker image
     - name: Build Docker image
       run: |
         docker build -t hello-world-app .
 
-    # ✅ Step 5: Save the Docker image to a local tarball
+    #  Step 5: Save the Docker image to a local tarball
     - name: Save Docker image to tar file
       run: |
         mkdir -p docker-output
         docker save hello-world-app -o docker-output/hello-world-app.tar
 
-    # ✅ Step 6: Upload the tarball as a GitHub artifact
+    #  Step 6: Upload the tarball as a GitHub artifact
     - name: Upload Docker image tarball
       uses: actions/upload-artifact@v4
       with:
@@ -160,37 +160,50 @@ Below is the Ci-Cd.yml file for static web app:
 
 -Docker Install:
 
+```bash
 sudo apt install -y docker.io
 sudo usermod -aG docker $USER
 newgrp docker
+```
 
 -Kubectl Install:
 
+```bash
 curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
+```
 
 -Minikube Install:
 
+```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
 
 Step2:Start the MiniKube with Docker Driver:
 
+```bash
 minikube start --driver=docker
+```
 
 Check Status of Minikube:
 
+```bash
 minikube status
-
+```
 
 Step3: Ensure Minikube uses Docker Daemon for running application,Confirming Docker image is visible inside Minikube cluster:
 
+```bash
 eval $(minikube docker-env)
+```
 
 Step4: build the Docker image inside Minikube with Existing Dockerfile:
 
+```bash
 docker build -t hello-world-app .
+```
 
 Step5: Create Kuberenets Manifests files (Deployment and Service YAML files):
 
@@ -198,6 +211,7 @@ Step5: Create Kuberenets Manifests files (Deployment and Service YAML files):
 
 -inside k8s/deployment.yaml:
 
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -217,9 +231,11 @@ spec:
         image: hello-world-app
         ports:
         - containerPort: 5000
+```
 
 -Inside k8s/service.yaml:
 
+```bash
 apiVersion: v1
 kind: Service
 metadata:
@@ -232,23 +248,28 @@ spec:
   - port: 80
     targetPort: 5000
     nodePort: 30007
+```
 
 -Step7: appliy Kubernets Manifests file:
 
+```bash
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
+```
 
 -Check the status of Kubernets pods and Services:
 
+```bash
 kubectl get pods
 kubectl get svc
+```
 
 -Step8: Check the Minikube Ip and test curl for application output:
 
+```bash
 minikube ip
-
 curl http://<minikube-ip>:30007
-
+```
 
 -Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
 
@@ -258,19 +279,26 @@ curl http://<minikube-ip>:30007
 
 -Step1: Installing NGINX service on EC2:
 
+```bash
 sudo apt update
 sudo apt install nginx -y
 
+```
+
 -Step2: Get Minikube IP and NodePort Service Address:
 
+```bash
 minikube ip
 kubectl get svc
+```
 
 -Step3:Configuring NGINX Reverse Proxy, Edit the Nginx Config file:
 
+```bash
 sudo nano /etc/nginx/sites-available/default
+```
 
-
+```bash
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -283,15 +311,16 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
     }
 }
-
+```
 
 -step4:Save and Test the nginx configuration file and Restart the service:
 
+```bash
 sudo nginx -t
 sudo systemctl restart nginx
-
+```
 
 -Step5: Application Access on Public EC2 Ip address:
-
+```bash
 http://<EC2_PUBLIC_IP>
-
+```bash

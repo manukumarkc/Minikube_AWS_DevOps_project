@@ -7,7 +7,7 @@ This Project Demonstrates Deploying Simple Static Web page application on HTML u
 ---
 **##Project Steps Highlights:**
 
--Step1: Creation of Simple Web page using HTML and Flask and Containerize using Docker.
+-Step1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
 
 -Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
 
@@ -36,22 +36,28 @@ hello-k8s-app/
 
 ---
 
-## 🌐 App Description
+## App Description
 
-The app displays a simple HTML page with:
-- A styled header (`blue` background, white bold text)
-- A centered body message: **"Hello, World from Kubernetes!"**
-- A footer with copyright
+This Web application displays a simple HTML page with:
+-A Header in Blue Background and White bold text on it.
+-A Centered body with content, Hello World this is Manu Kumar Message from Minkube!
+-A footer with blue background with text: App by Manu Kumar.
 
 ---
 
-## 🧑‍💻 How to Run Locally (Optional)
+**Project Creation Explanation:**
 
-```bash
-docker build -t hello-world-app .
-docker run -p 5000:5000 hello-world-app
-```
-Visit: [http://localhost:5000](http://localhost:5000)
+
+-Step1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
+
+
+-Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
+
+
+-Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+
+
+-Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
 
 ---
 

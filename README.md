@@ -54,9 +54,9 @@ This Web application displays a simple HTML page with:
 
   Step1: Create AWS EC2 instance with t2.large instance size Configuration and SSH to EC2 .
 
- ,,,bash
-ssh -i "<PemPrivateKey>.pem" ubuntu@ec2-<ip-address>.eu-west-1.compute.amazonaws.com
-,,,
+ ```bash
+      ssh -i "<PemPrivateKey>.pem" ubuntu@ec2-<ip-address>.eu-west-1.compute.amazonaws.com
+```
         
 
   Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.

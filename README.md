@@ -57,30 +57,21 @@ This Web application displays a simple HTML page with:
  ```bash
       ssh -i "<PemPrivateKey>.pem" ubuntu@ec2-<ip-address>.eu-west-1.compute.amazonaws.com
 ```
-        
+     -Upgrade the EC2 Ubuntu Instance to latest version, create a Directory named hello-k8s-app.
+     ```bash
+       mkdir hello-k8s-app
+```
+     -add app.py file and enter the contents as it is from the above GitHub file,(or You Clone this Git Repository to get complete code on your local repo)
 
-  Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.
+     -Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.
   
-  Contains Flask as Dependency requirement inside requirement.txt for the application.
+     -Contains Flask as Dependency requirement inside requirement.txt for the application.
+   
 
- Docker file creation
-  
- 
+ Step2: Docker file creation to create a Docker Container image to run app on Minikube cluster
+     -Below are the Contents of Dockerfile,
 
-
-
-
-
-
-    A Dockerfile is used to containerize the app:
-
-        Based on the python:3.9-slim image
-
-        Installs Flask
-
-        Copies the app and static HTML
-
-        Exposes port 5000 and starts the Flask server
+      
 
     The Docker image is built using:
 

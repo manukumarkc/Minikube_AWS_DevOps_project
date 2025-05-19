@@ -1,11 +1,12 @@
 **#Hello, This is a Example Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
 
 
-This project demonstrates deploying a simple static web application using **Flask** and **HTML** on **Minikube** running on an **AWS EC2 instance**. The app is exposed publicly using **NGINX reverse proxy**, and includes a complete **CI/CD pipeline with GitHub Actions**.
+This Project Demonstrates Deploying Simple Static Web page application on HTML using Flask Python Frame work inside **Minikube Cluster** running on **AWS EC2 Instance with T2.large** Configuration, This Static Web page is exposed to public using NGINX reverse proxy and includes a Complete** CI_CD pipeline with GitHub Actions** with Multistage build configured.
+
 
 ---
+**##Project Steps Highlights:**
 
-## ✅ Project Highlights
 
 - 🐳 Containerized Flask app with static HTML page (Header + Footer)
 - 🔁 CI/CD using GitHub Actions

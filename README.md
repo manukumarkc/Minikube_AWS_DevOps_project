@@ -8,8 +8,11 @@ This Project Demonstrates Deploying Simple Static Web page application on HTML u
 **##Project Steps Highlights:**
 
 -Step1: Creation of Simple Web page using HTML and Flask and Containerize using Docker.
+
 -Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
+
 -Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+
 -Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
  
 ---

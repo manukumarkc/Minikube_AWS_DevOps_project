@@ -64,6 +64,7 @@ This Web application displays a simple HTML page with:
 
 
     ```bash
+
        mkdir hello-k8s-app
     ```
 

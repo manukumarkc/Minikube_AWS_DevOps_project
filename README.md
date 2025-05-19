@@ -80,12 +80,11 @@ RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 5000
 CMD ["python", "app.py"]
-   ```
-      
-
-    The Docker image is built using:
-
+   ```   
+  -Build the Docker Image with the Below command.
+```bash
 docker build -t hello-world-app .
+```
 
 -Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
 

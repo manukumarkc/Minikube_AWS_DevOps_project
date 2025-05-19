@@ -1,28 +1,28 @@
-**#Hello, This is a Example Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
+**#Hello All, This is a Explanation of Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
+ 
+**Access application on URL:** http://25.25.25.99
 
-
-This Project Demonstrates Deploying Simple Static Web page application on HTML using Flask Python Frame work inside **Minikube Cluster** running on **AWS EC2 Instance with T2.large** Configuration, This Static Web page is exposed to public using NGINX reverse proxy and includes a Complete** CI_CD pipeline with GitHub Actions** with Multistage build configured.
+This Project Demonstrates Deploying  Static Web page application on HTML using Flask Python Frame work inside **Minikube Cluster** running on **AWS EC2 Instance with T2.large** Configuration, This Static Web page is exposed to public using NGINX reverse proxy and includes a Complete **CI_CD pipeline with GitHub Actions** with Multistage build configured.
 
 
 ---
 **##Project Steps Highlights:**
 
--Step1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
+-Phase1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
 
--Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
+-Phase2: CI-CD pipeline with Multistage Build using GitHub Actions.
 
--Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+-Phase3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
 
--Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
+-Phase4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
  
 ---
 
-## 🗂 Project Tree Structure
+##  Project Tree Structure Details:
 
 ```bash
 hello-k8s-app/
-├── app.py                 # Static Web page on HTML using Flask Framework.
-├── index.html            # HTML Content with Header and Footer. 
+├── app.py                 # Static Web page on HTML using Flask Framework. 
 ├── requirements.txt      # Adding Python Flask Dependencies.
 ├── Dockerfile            # Dockerfile for Containerizing the App on Docker.
 ├── k8s/
@@ -48,8 +48,43 @@ This Web application displays a simple HTML page with:
 **Project Creation Explanation:**
 
 
--Step1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
+-Phase1: Creation of Static Web page using HTML and Flask and Containerize using Docker.
+ - 
+  The idea is to create a Static web page serving on Docker Container deployed inside Kubernetes Cluster and Exposing to Public access on AWS EC2 instance .
 
+  Step1: Create AWS EC2 instance with t2.large instance size Configuration and SSH to EC2 .
+
+ ,,,bash
+ssh -i "<PemPrivateKey>.pem" ubuntu@ec2-<ip-address>.eu-west-1.compute.amazonaws.com
+,,,
+        
+
+  Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.
+  
+  Contains Flask as Dependency requirement inside requirement.txt for the application.
+
+ Docker file creation
+  
+ 
+
+
+
+
+
+
+    A Dockerfile is used to containerize the app:
+
+        Based on the python:3.9-slim image
+
+        Installs Flask
+
+        Copies the app and static HTML
+
+        Exposes port 5000 and starts the Flask server
+
+    The Docker image is built using:
+
+docker build -t hello-world-app .
 
 -Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
 

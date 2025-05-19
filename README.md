@@ -90,7 +90,7 @@ CMD ["python", "app.py"]
 docker build -t hello-world-app .
 ```
 
--Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
+**-Phase2: CI-CD pipeline with Multistage Build using GitHub Actions.**
 
 -To Automate the App Building process and Verification process of the Static application, we used GitHUb Actions to Build Ci-Cd workflow, the Ci-Cd yml file create in the below given address .github/workflows/ci-cd.yml, below are the contents of Pipeline which ensures the application is correct and building process runs with linting and containerizes the application with latest Docker image on every Git Push action configured on main branch.
 
@@ -152,7 +152,7 @@ Below is the Ci-Cd.yml file for static web app:
 -Step6:Upload the tart ball into github Artifact to access every newly built latest image and retrive them when needed.
 
 
--Phase3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+**-Phase3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).**
 
 -this phase explaining how we installed and Configured Minikube on EC2 Instanc2(t2.large), Built Docker image inside Minikube, Deployed application using Kubernetes Manifests like Deployment yaml and service Yaml and Cross checked pod and service are running correctly.
 
@@ -271,7 +271,7 @@ minikube ip
 curl http://<minikube-ip>:30007
 ```
 
--Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
+**-Phase4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.**
 
 -Once the app is deployed on Minikube, its accessible internally via Minikube's IP and NodePort Service, but it does not available publically on any browser and with the EC2 public IP address , so i need a tunnel service or reverse Proxy or Loadbalancer to host publicly on Internet,i choosed Nginx as a Reverse proxy inside EC2 instance.
 

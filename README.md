@@ -1,4 +1,5 @@
-# 🚀 Hello World Static Web App on Minikube with NGINX Reverse Proxy
+**#Hello, This is a Example Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
+
 
 This project demonstrates deploying a simple static web application using **Flask** and **HTML** on **Minikube** running on an **AWS EC2 instance**. The app is exposed publicly using **NGINX reverse proxy**, and includes a complete **CI/CD pipeline with GitHub Actions**.
 

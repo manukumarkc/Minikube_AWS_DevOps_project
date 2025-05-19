@@ -100,8 +100,150 @@ Below is the Ci-Cd.yml file for static web app:
 
 
 
+```bash
+ steps:
+    # ✅ Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
 
--Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+    # ✅ Step 2: Install and run flake8 for linting
+    - name: Run flake8 linter
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+        flake8 app.py
+
+    # ✅ Step 3: Set up Docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # ✅ Step 4: Build the Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t hello-world-app .
+
+    # ✅ Step 5: Save the Docker image to a local tarball
+    - name: Save Docker image to tar file
+      run: |
+        mkdir -p docker-output
+        docker save hello-world-app -o docker-output/hello-world-app.tar
+
+    # ✅ Step 6: Upload the tarball as a GitHub artifact
+    - name: Upload Docker image tarball
+      uses: actions/upload-artifact@v4
+      with:
+        name: docker-image
+        path: docker-output/hello-world-app.tar
+```
+-Step1: Checkout application code from repository.
+
+-Step2: Installs and Runs Flake8 for Liniting and Cheking the code format.
+
+-Step3: Set up Docker for Building Docker images on the local machine using Dockerfile.
+
+-Step4:Building of Hello-world Docker image using the Docker build command.
+
+-Step5:Docker image is Saved in tar file in the local directory(as suggested not to publish in Docker Hub).
+
+-Step6:Upload the tart ball into github Artifact to access every newly built latest image and retrive them when needed.
+
+
+-Phase3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+
+-this phase explaining how we installed and Configured Minikube on EC2 Instanc2(t2.large), Built Docker image inside Minikube, Deployed application using Kubernetes Manifests like Deployment yaml and service Yaml and Cross checked pod and service are running correctly.
+
+-Step 1: Installing MiniKube and Kubectl on EC2.(installig Docker and Kubectl, Minikube with Bash)
+
+-Docker Install:
+
+sudo apt install -y docker.io
+sudo usermod -aG docker $USER
+newgrp docker
+
+-Kubectl Install:
+
+curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+
+-Minikube Install:
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+Step2:Start the MiniKube with Docker Driver:
+
+minikube start --driver=docker
+
+Check Status of Minikube:
+
+minikube status
+
+
+Step3: Ensure Minikube uses Docker Daemon for running application,Confirming Docker image is visible inside Minikube cluster:
+
+eval $(minikube docker-env)
+
+Step4: build the Docker image inside Minikube with Existing Dockerfile:
+
+docker build -t hello-world-app .
+
+Step5: Create Kuberenets Manifests files (Deployment and Service YAML files):
+
+-Inside k8s directory create Deployment.yaml and service.yaml files add the below contents:
+
+-inside k8s/deployment.yaml:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: hello-world-app
+        ports:
+        - containerPort: 5000
+
+-Inside k8s/service.yaml:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+spec:
+  type: NodePort
+  selector:
+    app: hello
+  ports:
+  - port: 80
+    targetPort: 5000
+    nodePort: 30007
+
+-Step7: appliy Kubernets Manifests file:
+
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+
+-Check the status of Kubernets pods and Services:
+
+kubectl get pods
+kubectl get svc
+
+-Step8: Check the Minikube Ip and test curl for application output:
+
+minikube ip
+
+curl http://<minikube-ip>:30007
 
 
 -Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.

@@ -7,30 +7,28 @@ This Project Demonstrates Deploying Simple Static Web page application on HTML u
 ---
 **##Project Steps Highlights:**
 
-
-- 🐳 Containerized Flask app with static HTML page (Header + Footer)
-- 🔁 CI/CD using GitHub Actions
-- ☸️ Kubernetes Deployment via Minikube (running inside EC2)
-- 🌐 NGINX reverse proxy to expose app via EC2 public IP
-- 📦 Docker image build and save as artifact
-
+-Step1: Creation of Simple Web page using HTML and Flask and Containerize using Docker.
+-Step2: CI-CD pipeline with Multistage Build using GitHub Actions.
+-Step3: Kubernetes Deployment on Minikube Cluster(Inside AWS EC2 Instance).
+-Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
+ 
 ---
 
-## 🗂 Project Structure
+## 🗂 Project Tree Structure
 
 ```bash
 hello-k8s-app/
-├── app.py                 # Flask app serving HTML
-├── index.html            # HTML page with header & footer
-├── requirements.txt      # Python dependencies
-├── Dockerfile            # Builds the container image
+├── app.py                 # Static Web page on HTML using Flask Framework.
+├── index.html            # HTML Content with Header and Footer. 
+├── requirements.txt      # Adding Python Flask Dependencies.
+├── Dockerfile            # Dockerfile for Containerizing the App on Docker.
 ├── k8s/
-│   ├── deployment.yaml   # K8s Deployment
-│   └── service.yaml      # K8s NodePort Service
+│   ├── deployment.yaml   # Kubernetes Deployment Yaml file.
+│   └── service.yaml      # Kubernetes Service Yaml file for Exposing Deployment on NodePort.
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml     # GitHub Actions workflow
-├── README.md             # You're reading this!
+│       └── ci-cd.yml     # CI-CD yml file for GitHub Actions Workflow.
+├── README.md             # Readme file for Understanding complete architecture of Deployment process.
 ```
 
 ---

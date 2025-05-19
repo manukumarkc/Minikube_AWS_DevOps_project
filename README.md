@@ -248,113 +248,46 @@ curl http://<minikube-ip>:30007
 
 -Step4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.
 
----
+-Once the app is deployed on Minikube, its accessible internally via Minikube's IP and NodePort Service, but it does not available publically on any browser and with the EC2 public IP address , so i need a tunnel service or reverse Proxy or Loadbalancer to host publicly on Internet,i choosed Nginx as a Reverse proxy inside EC2 instance.
 
-## 🔧 GitHub Actions CI/CD Pipeline
+-below are the steps to configure and access static web app on EC2 public IP.
 
-File: `.github/workflows/ci-cd.yml`
+-Step1: Installing NGINX service on EC2:
 
-### What It Does:
-- ✅ Lints Python code with flake8
-- 🐳 Builds Docker image
-- 📦 Saves image as tar file locally (`docker-output/`)
-- ☁️ Uploads as GitHub Action artifact
-
-No Docker Hub push is required for this setup.
-
----
-
-## ☸️ Deploying to Minikube on EC2
-
-### 📌 Step 1: SSH into your EC2
-```bash
-ssh -i your-key.pem ubuntu@<EC2_PUBLIC_IP>
-```
-
-### 📌 Step 2: Set up Minikube environment
-```bash
-eval $(minikube docker-env)
-```
-
-### 📌 Step 3: Build Docker image for Minikube
-```bash
-docker build -t hello-world-app .
-```
-
-### 📌 Step 4: Apply Kubernetes manifests
-```bash
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-```
-
-### 📌 Step 5: Get Minikube IP
-```bash
-minikube ip
-```
-Access app via:
-```bash
-http://<minikube-ip>:30007
-```
-
----
-
-## 🌐 Exposing via NGINX Reverse Proxy
-
-### 📌 Install NGINX
-```bash
+sudo apt update
 sudo apt install nginx -y
-```
 
-### 📌 Update NGINX default config
-```nginx
+-Step2: Get Minikube IP and NodePort Service Address:
+
+minikube ip
+kubectl get svc
+
+-Step3:Configuring NGINX Reverse Proxy, Edit the Nginx Config file:
+
+sudo nano /etc/nginx/sites-available/default
+
+
 server {
-    listen 80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
     location / {
-        proxy_pass http://192.168.49.2:30007;  # Replace with your Minikube IP
+        proxy_pass http://<MINIKUBE_IP>:30007;  # Minikube Ip is served to public IP of EC2 for Public acccess of EC2.
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
 }
-```
 
-### 📌 Restart NGINX
-```bash
+
+-step4:Save and Test the nginx configuration file and Restart the service:
+
+sudo nginx -t
 sudo systemctl restart nginx
-```
 
-✅ Now your app is accessible via:
-```bash
+
+-Step5: Application Access on Public EC2 Ip address:
+
 http://<EC2_PUBLIC_IP>
-```
-
-> Ensure EC2 Security Group has port **80** open to `0.0.0.0/0`
-
----
-
-## 📸 Screenshot
-![screenshot](./screenshot.png)
-
----
-
-## 🧪 Troubleshooting
-
-- 🔁 Pod stuck in `Pending`? Run `kubectl get nodes` — Minikube might need a restart
-- ❌ NGINX shows 502? Check if the app is accessible on `minikube ip:30007`
-- 🔐 Still can't access? Open EC2 ports 80 and 30007
-
----
-
-## 🙌 Author
-**Manukumarkc** — DevOps Cloud Engineer Aspirant
-
----
-
-## ✅ To-Do / Next Steps
-- Push Docker image to Docker Hub
-- Add Trivy scanning for image security
-- Automate EC2 setup using Bash or Terraform
-
----
-
-This project showcases your DevOps fundamentals — well done! 🚀
 

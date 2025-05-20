@@ -36,7 +36,11 @@ def home():
     </head>
     <body>
         <header>
+<<<<<<< HEAD
             <h2> My Static Web Page using Falsk and Kubernetes</h2>
+=======
+            <h2>MY Static WebPage using Flask in MiniKube</h2>
+>>>>>>> 6faa1d2 (new update)
         </header>
         <main>
             <h1>Hello, World from <strong>Kubernetes</strong>!</h1>

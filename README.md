@@ -1,6 +1,6 @@
 **###Hello All, This is a Explanation of Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
  
-**##Access application on URL:** http://25.25.25.99
+**##Access application on URL:** http://52.16.78.143
 
 This Project Demonstrates Deploying  Static Web page application on HTML using Flask Python Frame work inside **Minikube Cluster** running on **AWS EC2 Instance with T2.large** Configuration, This Static Web page is exposed to public using NGINX reverse proxy and includes a Complete **CI_CD pipeline with GitHub Actions** with Multistage build configured.
 
@@ -246,7 +246,7 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 ```
 
--Minikube Install:
+-Minikube Install: #Minikube install commands
 
 ```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -256,25 +256,25 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 Step2:Start the MiniKube with Docker Driver:
 
 ```bash
-minikube start --driver=docker
+minikube start --driver=docker  #starting Minikube using Docker as Driver
 ```
 
 Check Status of Minikube:
 
 ```bash
-minikube status
+minikube status  #Checking the Status of minikube for running pods inside it.
 ```
 
 Step3: Ensure Minikube uses Docker Daemon for running application,Confirming Docker image is visible inside Minikube cluster:
 
 ```bash
-eval $(minikube docker-env)
+eval $(minikube docker-env)  #setting Docker environment inside minikube
 ```
 
 Step4: build the Docker image inside Minikube with Existing Dockerfile:
 
 ```bash
-docker build -t hello-world-app .
+docker build -t hello-world-app .  #Docker Build for creating container image
 ```
 
 Step5: Create Kuberenets Manifests files (Deployment and Service YAML files):
@@ -313,7 +313,7 @@ kind: Service
 metadata:
   name: hello-service
 spec:
-  type: NodePort
+  type: NodePort   #nodeport type is used for expose single pod to stable network endpoint to outside.
   selector:
     app: hello
   ports:
@@ -325,15 +325,15 @@ spec:
 -Step7: appliy Kubernets Manifests file:
 
 ```bash
-kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/deployment.yaml. #manuall Application Deployment through manifest files
 kubectl apply -f k8s/service.yaml
 ```
 
 -Check the status of Kubernets pods and Services:
 
 ```bash
-kubectl get pods
-kubectl get svc
+kubectl get pods #Checking pods state 
+kubectl get svc  #checking service for Nodeport service expose
 ```
 
 -Step8: Check the Minikube Ip and test curl for application output:
@@ -360,19 +360,19 @@ sudo apt install nginx -y
 -Step2: Get Minikube IP and NodePort Service Address:
 
 ```bash
-minikube ip
-kubectl get svc
+minikube ip  #Minikube IP
+kubectl get svc #Service Address as Nodeport
 ```
 
 -Step3:Configuring NGINX Reverse Proxy, Edit the Nginx Config file:
 
 ```bash
-sudo nano /etc/nginx/sites-available/default
+sudo nano /etc/nginx/sites-available/default  #edit the nginx Config file
 ```
 
 ```bash
 server {
-    listen 80 default_server;
+    listen 80 default_server;  #http response listens to server ip on application layer
     listen [::]:80 default_server;
 
     server_name _;
@@ -389,10 +389,12 @@ server {
 
 ```bash
 sudo nginx -t
-sudo systemctl restart nginx
+sudo systemctl restart nginx  #restart the Nginx service
 ```
 
 -Step5: Application Access on Public EC2 Ip address:
 ```bash
-http://<EC2_PUBLIC_IP>
+http://52.16.78.143  #Elastic IP is Associated to EC2 Server
+#Access the application live and view the static content on EC2 server IP address.
+
 ```

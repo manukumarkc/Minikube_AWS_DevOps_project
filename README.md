@@ -343,7 +343,7 @@ minikube ip
 curl http://<minikube-ip>:30007
 ```
 
-**-Phase4: Expose the App via Nginx Reverse Proxy for Public using AWS EC2 Public IP.**
+**-Phase4: Expose the App via Nginx Reverse Proxy for Public Access using AWS EC2 Public IP.**
 
 -Once the app is deployed on Minikube, its accessible internally via Minikube's IP and NodePort Service, but it does not available publically on any browser and with the EC2 public IP address , so i need a tunnel service or reverse Proxy or Loadbalancer to host publicly on Internet,i choosed Nginx as a Reverse proxy inside EC2 instance.
 

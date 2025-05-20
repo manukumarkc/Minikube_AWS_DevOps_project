@@ -152,7 +152,7 @@ docker build -t hello-world-app . #Docker Buid Command to create Docker image
 
 **-Phase2: CI-CD pipeline with Multistage Build using GitHub Actions.**
 
--To Automate the App Building process and Verification process of the Static application, we used GitHUb Actions to Build Ci-Cd workflow, the Ci-Cd yml file create in the below given address .github/workflows/ci-cd.yml, below are the contents of Pipeline which ensures the application is correct and building process runs with linting and containerizes the application with latest Docker image on every Git Push action configured on main branch.
+-To Automate the App Building process and Verification process of the Static application, I used GitHUb Actions to Build Ci-Cd workflow, the Ci-Cd yml file create in the below given address .github/workflows/ci-cd.yml, below are the contents of Pipeline which ensures the application is correct and building process runs with linting and containerizes the application with latest Docker image on every Git Push action configured on main branch.
 
 Below is the Ci-Cd.yml file for static web app:
 
@@ -165,34 +165,46 @@ Below is the Ci-Cd.yml file for static web app:
 
 
 ```bash
- steps:
-    #  Step 1: Checkout the repository
+name: CI/CD Pipeline  #name of the Pipeline
+
+on:
+  push:   #trigger created for all the Git Push confirmed on Main branch.
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:   #runs the job on Ubuntu Server 
+    runs-on: ubuntu-latest
+
+    steps:
+    #  Step 1: Checkout the Git Main branch repository 
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Install and run flake8 for linting
+    # Step 2: Install and run flake8 for linting for format and error detection.
     - name: Run flake8 linter
       run: |
         python -m pip install --upgrade pip
         pip install flake8
         flake8 app.py
 
-    #  Step 3: Set up Docker
+    # Step 3: Set up Docker to create image of Platform independent.
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    #  Step 4: Build the Docker image
+    # Step 4: Build the Docker image for creating Docker Container.
     - name: Build Docker image
       run: |
         docker build -t hello-world-app .
 
-    #  Step 5: Save the Docker image to a local tarball
+    # Step 5: Save the Docker image to a local tarball (As suggested in the task not to store in DokcerHUb)
     - name: Save Docker image to tar file
       run: |
         mkdir -p docker-output
         docker save hello-world-app -o docker-output/hello-world-app.tar
 
-    #  Step 6: Upload the tarball as a GitHub artifact
+    # Step 6: Upload the tarball as a GitHub artifact, for every sucessfull build workflow docker latest image is created.
     - name: Upload Docker image tarball
       uses: actions/upload-artifact@v4
       with:

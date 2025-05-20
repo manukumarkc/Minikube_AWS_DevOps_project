@@ -42,7 +42,7 @@ This Web application displays a simple HTML page with:
 
 -A Header in Blue Background and White bold text on it.
 
--A Centered body with content, Hello World this is Manu Kumar Message from Minkube!
+-A Centered body with content, Hello World this from Kubernetes!,This is a static-style page served by Flask in a container.
 
 -A footer with blue background with text: App by Manu Kumar.
 

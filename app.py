@@ -36,14 +36,14 @@ def home():
     </head>
     <body>
         <header>
-            <h2>🚀 My Static Web Page (Flask + K8s)</h2>
+            <h2> My Static Web Page using Falsk and Kubernetes</h2>
         </header>
         <main>
             <h1>Hello, World from <strong>Kubernetes</strong>!</h1>
             <p>This is a static-style page served by Flask in a container.</p>
         </main>
         <footer>
-            <p>&copy; 2025 • Built by Manu 🚀</p>
+            <p>App Created by Manu Kumar</p>
         </footer>
     </body>
     </html>

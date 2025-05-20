@@ -72,7 +72,63 @@ This Web application displays a simple HTML page with:
    ```
 
   -add app.py file and enter the contents as it is from the above GitHub file,(or You Clone this Git Repository to get complete code on your local repo)
+ 
+  ```bash
+   from flask import Flask #import Flask 
 
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return '''  #returning HTML wenpage as output.
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Hello World</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #f8f8f8;
+                color: #333;
+            }
+            header, footer {
+                background-color: #004080;
+                color: white;
+                text-align: center;
+                padding: 20px;
+            }
+            main {
+                padding: 40px;
+                text-align: center;
+            }
+            h1 {
+                font-weight: bold;
+                color: #004080;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h2> My Static Web Page using Falsk and Kubernetes</h2> #header Description
+        </header>
+        <main>
+            <h1>Hello, World from <strong>Kubernetes</strong>!</h1>
+            <p>This is a static-style page served by Flask in a container.</p> #Body Description of Static Web page.
+        </main>
+        <footer>
+            <p>App Created by Manu Kumar</p>#Footer Description
+        </footer>
+    </body>
+    </html>
+    '''
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)  #Run the Application on port 5000
+  ```
   -Flask app.py which serves HTML content within its renderning page function created and run locally to see the application with Header and Body and Footer html content.
   
   -Contains Flask as Dependency requirement inside requirement.txt for the application.
@@ -81,17 +137,17 @@ This Web application displays a simple HTML page with:
  Step2: Docker file creation to create a Docker Container image to run app on Minikube cluster
      -Below are the Contents of Dockerfile,
    ```bash
-FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["python", "app.py"]
-   ```   
+FROM python:3.9-slim #Use Python officila image for Conatiner Creation.
+WORKDIR /app  #Set Workdirectory.
+COPY requirements.txt . #Copy Requirements file to create docker container using flask requirement.
+RUN pip install -r requirements.txt #run flask requirement command
+COPY . . #copy all the source code present work directory of container.
+EXPOSE 5000  #Expose the container to 5000
+CMD ["python", "app.py"] #execute Command python and app.py 
+   ```    
   -Build the Docker Image with the Below command.
 ```bash
-docker build -t hello-world-app .
+docker build -t hello-world-app . #Docker Buid Command to create Docker image
 ```
 
 **-Phase2: CI-CD pipeline with Multistage Build using GitHub Actions.**

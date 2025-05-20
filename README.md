@@ -1,6 +1,8 @@
 **###Hello All, This is a Explanation of Project for Hosting Static Web App on MiniKube inside AWS EC2 with NGINX Reverse Proxy.**
  
 **##Access application on URL:** http://52.16.78.143
+![image](https://github.com/user-attachments/assets/13b6e788-f320-4b0d-a915-10c7c81b0e42)
+
 
 This Project Demonstrates Deploying  Static Web page application on HTML using Flask Python Frame work inside **Minikube Cluster** running on **AWS EC2 Instance with T2.large** Configuration, This Static Web page is exposed to public using NGINX reverse proxy and includes a Complete **CI_CD pipeline with GitHub Actions** with Multistage build configured.
 
